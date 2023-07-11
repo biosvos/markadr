@@ -1,6 +1,7 @@
 package filesystem
 
 import (
+	"fmt"
 	"github.com/biosvos/markadr/flow"
 	"github.com/pkg/errors"
 	"os"
@@ -60,7 +61,12 @@ func (f *Filesystem) List() ([]flow.Page, error) {
 			continue
 		}
 		title := strings.TrimSuffix(file.Name(), ".md")
-		ret = append(ret, NewFile(title, f.assetPath+"/"+file.Name()))
+		ret = append(ret, NewFile(title, fmt.Sprintf("%v/%v", f.assetPath, file.Name())))
 	}
 	return ret, nil
+}
+
+func (f *Filesystem) Get(title string) (flow.Page, error) {
+	file := NewFile(title, fmt.Sprintf("%v/%v.md", f.assetPath, title))
+	return file, nil
 }

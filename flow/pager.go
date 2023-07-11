@@ -7,4 +7,5 @@ type Page interface {
 
 type Pager interface {
 	List() ([]Page, error)
+	Get(title string) (Page, error)
 }

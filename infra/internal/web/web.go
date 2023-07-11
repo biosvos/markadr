@@ -40,4 +40,5 @@ func (w *Web) routing() {
 		navigator: w.navigator,
 	}
 	w.server.GET("/", routing.homepage)
+	w.server.GET("/pages/{title}", routing.page)
 }

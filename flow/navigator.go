@@ -11,3 +11,7 @@ func NewNavigator(pager Pager) *Navigator {
 func (n *Navigator) ListPages() ([]Page, error) {
 	return n.pager.List()
 }
+
+func (n *Navigator) GetPage(title string) (Page, error) {
+	return n.pager.Get(title)
+}

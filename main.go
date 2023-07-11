@@ -1,12 +1,18 @@
 package main
 
 import (
-	"github.com/biosvos/go-template/internal"
+	"github.com/biosvos/markadr/infra/web"
 	"log"
 )
 
 func main() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	err := internal.Work()
-	log.Println(err)
+	server := web.NewWeb(8123)
+	err := server.Run()
+	panicIfErr(err)
+}
+
+func panicIfErr(err error) {
+	if err != nil {
+		log.Panicf("%+v", err)
+	}
 }

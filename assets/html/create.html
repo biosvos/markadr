@@ -20,10 +20,10 @@
             })
         })
 
-        function onKeyDown(event) {
+        function onKeyDown(obj, event) {
             if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
-                $(this).parent().append(`<input type="text" name="haha" onkeydown="onKeyDown(event)">`);
-                alert("hi");
+                $(obj).parent().append("<br>");
+                $(obj).parent().append($(obj)["context"].outerHTML);
                 return false;
             }
         }
@@ -43,9 +43,9 @@
     <p><label>문제<br><textarea class="auto-resizing" placeholder="문제가 명확해야 해결책이 명확하다."></textarea></label></p>
     <p><label>맥락<br><textarea class="auto-resizing"></textarea></label></p>
     <p><label>결정 요소<br><input type="text"></label></p>
-    <p><label>옵션<br><input type="text" name="haha"></label></p>
-    <p><label>Tags<br><input type="text" name="haha" onkeydown="onKeyDown(event)"></label></p>
-    <p><label>Links<br><input type="text" name="haha"></label></p>
+    <p><label>옵션<br><textarea class="auto-resizing" onkeydown="onKeyDown(this, event)"></textarea></label></p>
+    <p><label>Tags<br><input type="text" name="tags" onkeydown="onKeyDown(this, event)"></label></p>
+    <p><label>Links<br><input type="text" name="links" onkeydown="onKeyDown(this, event)"></label></p>
     <input type="submit">
 </form>
 </body>

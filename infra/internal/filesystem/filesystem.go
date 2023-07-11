@@ -4,6 +4,7 @@ import (
 	"github.com/biosvos/markadr/flow"
 	"github.com/pkg/errors"
 	"os"
+	"strings"
 )
 
 var _ flow.Pager = &Filesystem{}
@@ -27,6 +28,9 @@ func (f *Filesystem) List() ([]*flow.Page, error) {
 	var ret []*flow.Page
 	for _, file := range files {
 		if file.IsDir() {
+			continue
+		}
+		if !strings.HasSuffix(file.Name(), ".md") {
 			continue
 		}
 		ret = append(ret, &flow.Page{Name: file.Name()})

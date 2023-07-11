@@ -7,6 +7,32 @@ import (
 	"strings"
 )
 
+var _ flow.Page = &File{}
+
+type File struct {
+	title string
+	path  string
+}
+
+func NewFile(title string, path string) *File {
+	return &File{
+		title: title,
+		path:  path,
+	}
+}
+
+func (f *File) Title() string {
+	return f.title
+}
+
+func (f *File) Get() ([]byte, error) {
+	ret, err := os.ReadFile(f.path)
+	if err != nil {
+		return nil, errors.WithStack(err)
+	}
+	return ret, nil
+}
+
 var _ flow.Pager = &Filesystem{}
 
 type Filesystem struct {
@@ -19,13 +45,13 @@ func NewFilesystem(assetPath string) *Filesystem {
 	}
 }
 
-func (f *Filesystem) List() ([]*flow.Page, error) {
+func (f *Filesystem) List() ([]flow.Page, error) {
 	files, err := os.ReadDir(f.assetPath)
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
 
-	var ret []*flow.Page
+	var ret []flow.Page
 	for _, file := range files {
 		if file.IsDir() {
 			continue
@@ -33,7 +59,8 @@ func (f *Filesystem) List() ([]*flow.Page, error) {
 		if !strings.HasSuffix(file.Name(), ".md") {
 			continue
 		}
-		ret = append(ret, &flow.Page{Name: file.Name()})
+		title := strings.TrimSuffix(file.Name(), ".md")
+		ret = append(ret, NewFile(title, f.assetPath+"/"+file.Name()))
 	}
 	return ret, nil
 }

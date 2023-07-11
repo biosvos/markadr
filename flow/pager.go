@@ -1,9 +1,10 @@
 package flow
 
-type Page struct {
-	Name string
+type Page interface {
+	Title() string
+	Get() ([]byte, error)
 }
 
 type Pager interface {
-	List() ([]*Page, error)
+	List() ([]Page, error)
 }

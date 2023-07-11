@@ -14,7 +14,7 @@ func (r *router) homepage(ctx *atreugo.RequestCtx) error {
 	}
 	var stringPages []string
 	for _, page := range pages {
-		stringPages = append(stringPages, page.Name)
+		stringPages = append(stringPages, page.Title())
 	}
 	tmpl, err := template.ParseFiles("assets/html/index.html")
 	if err != nil {

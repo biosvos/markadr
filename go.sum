@@ -3,6 +3,8 @@ github.com/andybalholm/brotli v1.0.5/go.mod h1:fO7iG3H7G2nSZ7m0zPUDn85XEX2GTukHG
 github.com/atreugo/mock v0.0.0-20200601091009-13c275b330b0 h1:IVqe9WnancrkICl5HqEfGjrnkQ4+VsU5fodcuFVoG/A=
 github.com/fasthttp/router v1.4.19 h1:RLE539IU/S4kfb4MP56zgP0TIBU9kEg0ID9GpWO0vqk=
 github.com/fasthttp/router v1.4.19/go.mod h1:+Fh3YOd8x1+he6ZS+d2iUDBH9MGGZ1xQFUor0DE9rKE=
+github.com/gomarkdown/markdown v0.0.0-20230322041520-c84983bdbf2a h1:AWZzzFrqyjYlRloN6edwTLTUbKxf5flLXNuTBDm3Ews=
+github.com/gomarkdown/markdown v0.0.0-20230322041520-c84983bdbf2a/go.mod h1:JDGcbDT52eL4fju3sZ4TeHGsQwhG9nbDV21aMyhwPoA=
 github.com/klauspost/compress v1.16.7 h1:2mk3MPGNzKyxErAw8YaohYh69+pa4sIQSC0fPGCFR9I=
 github.com/klauspost/compress v1.16.7/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=

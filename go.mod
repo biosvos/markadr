@@ -3,6 +3,7 @@ module github.com/biosvos/markadr
 go 1.20
 
 require (
+	github.com/gomarkdown/markdown v0.0.0-20230322041520-c84983bdbf2a
 	github.com/pkg/errors v0.9.1
 	github.com/savsgio/atreugo/v11 v11.10.0
 )

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"github.com/pkg/errors"
 	"github.com/savsgio/atreugo/v11"
-	"html/template"
+	"text/template"
 )
 
 func (r *router) homepage(ctx *atreugo.RequestCtx) error {

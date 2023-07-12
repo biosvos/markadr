@@ -1,22 +1,17 @@
-const tasks = document.getElementsByClassName("task");
-Array.prototype.forEach.call(tasks, (task) => {
-    task.addEventListener("dragstart", (event) => {
-        event.dataTransfer.setData("text", event.target.id);
-    }, false);
-});
+$(function () {
+    $(".task").on("dragstart", function (event) {
+        event.originalEvent.dataTransfer.setData("text", event.target.id);
+    });
 
-const kanbanBlocks = document.getElementsByClassName("kanban-block");
-Array.prototype.forEach.call(kanbanBlocks, (kanban) => {
-    kanban.addEventListener("drop", (event) => {
+    let blocks = $(".kanban-block");
+    blocks.on("drop", function (event) {
+        console.log("hi");
         event.preventDefault();
-        let data = event.dataTransfer.getData("text");
-        event.currentTarget.appendChild(document.getElementById(data));
-    }, false);
-});
-
-Array.prototype.forEach.call(kanbanBlocks, (kanban) => {
-    kanban.addEventListener("dragover", (event) => {
+        let data = event.originalEvent.dataTransfer.getData("text");
+        event.originalEvent.currentTarget.appendChild(document.getElementById(data));
+    });
+    blocks.on("dragover", function (event) {
         event.preventDefault();
-    }, false);
-});
+    });
+})
 

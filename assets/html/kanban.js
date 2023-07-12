@@ -1,7 +1,11 @@
 $(function () {
-    $(".task").on("dragstart", function (event) {
+    let tasks = $(".task");
+    tasks.on("dragstart", function (event) {
         event.originalEvent.dataTransfer.setData("text", event.target.id);
     });
+    tasks.on("dblclick", function () {
+        window.location = `/pages/${$(this).attr("id")}`
+    })
 
     let blocks = $(".kanban-block");
     blocks.on("drop", function (event) {

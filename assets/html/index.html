@@ -12,19 +12,28 @@
 <body>
 <div class="container">
     <div class="kanban-board">
-        <div class="kanban-block" id="todo">
-            <strong>To Do</strong>
+        <div class="kanban-block" id="draft">
+            <strong>Draft</strong>
             {{range .pages}}
                 <div class="task" id="{{.}}" draggable="true">
                     <span>{{.}}</span>
                 </div>
             {{end}}
         </div>
-        <div class="kanban-block" id="inprogress">
-            <strong>In Progress</strong>
+        <div class="kanban-block" id="proposed">
+            <strong>Proposed</strong>
         </div>
-        <div class="kanban-block" id="done">
-            <strong>Done</strong>
+        <div class="kanban-block" id="rejected">
+            <strong>Rejected</strong>
+        </div>
+        <div class="kanban-block" id="Accepted">
+            <strong>Accepted</strong>
+        </div>
+        <div class="kanban-block" id="Deprecated">
+            <strong>Deprecated</strong>
+        </div>
+        <div class="kanban-block" id="superseded">
+            <strong>Superseded by</strong>
         </div>
     </div>
 </div>

@@ -1,56 +1,36 @@
-# [short title of solved problem and solution]
+# title
 
-- Status: [draft | proposed | rejected | accepted | deprecated | … | superseded by [xxx](yyyymmdd-xxx.md)] <!-- optional -->
-- Deciders: [list everyone involved in the decision] <!-- optional -->
-- Date: [YYYY-MM-DD when the decision was last updated] <!-- optional. To customize the ordering without relying on Git creation dates and filenames -->
-- Tags: [space and/or comma separated list of tags] <!-- optional -->
+- Status: draft
+- Deciders: [list everyone involved in the decision]
+- Date: [YYYY-MM-DD when the decision was last updated]
+- Tags: [space and/or comma separated list of tags]
 
-Technical Story: [description | ticket/issue URL] <!-- optional -->
+Technical Story: [description | ticket/issue URL]
 
 ## Context and Problem Statement
 
 [Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
 
-## Decision Drivers <!-- optional -->
+## Decision Drivers
 
-- [driver 1, e.g., a force, facing concern, …]
-- [driver 2, e.g., a force, facing concern, …]
+- driver1
+- driver2
 
-## Considered Options
-
-- [option 1]
-- [option 2]
-
-## Decision Outcome
-
-선택: "[option 1]"  
-이유: ...
-
-### Positive Consequences <!-- optional -->
-
-- ...
-
-### Negative Consequences <!-- optional -->
-
-- ...
-
-## Pros and Cons of the Options <!-- optional -->
+## Options
 
 ### [option 1]
 
-[example | description | pointer to more information | …] <!-- optional -->
+| Pros | Cons |
+|------|------|
+| aa   | bb   |
+| aa   | bb   |
+|      | bb   |
 
-- Good, because [argument a]
-- Bad, because [argument b]
+## Decision Outcome
 
-### [option 2]
+Pick: [option 1]  
+- ...
 
-[example | description | pointer to more information | …] <!-- optional -->
+## Links
 
-- Good, because [argument a]
-- Bad, because [argument b]
-
-## Links <!-- optional -->
-
-- [Link type](link to adr) <!-- example: Refined by [xxx](yyyymmdd-xxx.md) -->
-- … <!-- numbers of links can vary -->
+- [Link type](link to adr)

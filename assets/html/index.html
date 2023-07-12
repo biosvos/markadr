@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="kanban.css">
-    <script src="kanban.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="kanban-board">
-        <div class="kanban-block" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="kanban-block" id="todo">
             <strong>To Do</strong>
             {{range .pages}}
-                <div class="task" id="{{.}}" draggable="true" ondragstart="drag(event)">
+                <div class="task" id="{{.}}" draggable="true">
                     <span>{{.}}</span>
                 </div>
             {{end}}
         </div>
-        <div class="kanban-block" id="inprogress" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="kanban-block" id="inprogress">
             <strong>In Progress</strong>
         </div>
-        <div class="kanban-block" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="kanban-block" id="done">
             <strong>Done</strong>
         </div>
     </div>
 </div>
+<script src="kanban.js"></script>
 </body>
 </html>

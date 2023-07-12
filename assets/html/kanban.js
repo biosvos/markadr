@@ -1,13 +1,22 @@
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
+const tasks = document.getElementsByClassName("task");
+Array.prototype.forEach.call(tasks, (task) => {
+    task.addEventListener("dragstart", (event) => {
+        event.dataTransfer.setData("text", event.target.id);
+    }, false);
+});
 
-function allowDrop(event) {
-    event.preventDefault();
-}
+const kanbanBlocks = document.getElementsByClassName("kanban-block");
+Array.prototype.forEach.call(kanbanBlocks, (kanban) => {
+    kanban.addEventListener("drop", (event) => {
+        event.preventDefault();
+        let data = event.dataTransfer.getData("text");
+        event.currentTarget.appendChild(document.getElementById(data));
+    }, false);
+});
 
-function drop(event) {
-    event.preventDefault();
-    let data = event.dataTransfer.getData("text");
-    event.currentTarget.appendChild(document.getElementById(data));
-}
+Array.prototype.forEach.call(kanbanBlocks, (kanban) => {
+    kanban.addEventListener("dragover", (event) => {
+        event.preventDefault();
+    }, false);
+});
+

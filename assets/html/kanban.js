@@ -5,7 +5,6 @@ $(function () {
 
     let blocks = $(".kanban-block");
     blocks.on("drop", function (event) {
-        console.log("hi");
         event.preventDefault();
         let data = event.originalEvent.dataTransfer.getData("text");
         event.originalEvent.currentTarget.appendChild(document.getElementById(data));

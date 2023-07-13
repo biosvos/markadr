@@ -2,27 +2,27 @@ package web
 
 import (
 	"fmt"
-	"github.com/biosvos/markadr/flow"
+	"github.com/biosvos/markadr/flow/repository"
 	"github.com/savsgio/atreugo/v11"
 )
 
 type router struct {
-	navigator *flow.Navigator
+	repository repository.Repository
 }
 
 type Web struct {
-	navigator *flow.Navigator
-	server    *atreugo.Atreugo
+	repository repository.Repository
+	server     *atreugo.Atreugo
 }
 
-func NewWeb(port uint16, navigator *flow.Navigator) *Web {
+func NewWeb(port uint16, repository repository.Repository) *Web {
 	address := fmt.Sprintf(":%v", port)
 	server := atreugo.New(atreugo.Config{
 		Addr: address,
 	})
 	return &Web{
-		server:    server,
-		navigator: navigator,
+		server:     server,
+		repository: repository,
 	}
 }
 
@@ -37,7 +37,7 @@ func (w *Web) run() error {
 
 func (w *Web) routing() {
 	routing := &router{
-		navigator: w.navigator,
+		repository: w.repository,
 	}
 	w.server.GET("/", routing.homepage)
 	w.server.GET("/pages/{title}", routing.page)

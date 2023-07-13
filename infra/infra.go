@@ -1,8 +1,7 @@
 package infra
 
 import (
-	"github.com/biosvos/markadr/flow"
-	"github.com/biosvos/markadr/infra/internal/filesystem"
+	"github.com/biosvos/markadr/infra/internal/repository/filesystem"
 	"github.com/biosvos/markadr/infra/internal/web"
 	"log"
 	"os"
@@ -14,7 +13,7 @@ const (
 
 func Run() {
 	assetPath := getEnv(envAssetPath)
-	server := web.NewWeb(8123, flow.NewNavigator(filesystem.NewFilesystem(assetPath)))
+	server := web.NewWeb(8123, filesystem.NewRepository(assetPath))
 	err := server.Run()
 	panicIfErr(err)
 }

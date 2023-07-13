@@ -9,13 +9,13 @@ import (
 )
 
 func (r *router) homepage(ctx *atreugo.RequestCtx) error {
-	pages, err := r.navigator.ListPages()
+	summaries, err := r.repository.ListSummaries()
 	if err != nil {
 		return errors.WithStack(err)
 	}
 	var stringPages []string
-	for _, page := range pages {
-		stringPages = append(stringPages, page.Title())
+	for _, summary := range summaries {
+		stringPages = append(stringPages, summary.Title)
 	}
 	tmpl := template.Must(template.New("index").Parse(html.Index))
 	var buffer bytes.Buffer

@@ -1,22 +1,34 @@
 package web
 
 import (
-	"fmt"
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/biosvos/markadr/assets/html"
 	"github.com/savsgio/atreugo/v11"
-	"os"
 	"strings"
 )
 
-func (r *router) css(ctx *atreugo.RequestCtx) error {
+func (r *router) sendFile(ctx *atreugo.RequestCtx) error {
 	filename := ctx.UserValue("file").(string)
-	bytes, err := os.ReadFile(fmt.Sprintf("%v/%v", "assets/html", filename))
+	bytes, err := getFileBytes(filename)
 	if err != nil {
-		return errors.WithStack(err)
+		return ctx.ErrorResponse(err, 404)
 	}
 	setHeaderByFileSuffix(ctx, filename)
 	ctx.SetBody(bytes)
 	return nil
+}
+
+func getFileBytes(filename string) ([]byte, error) {
+	switch filename {
+	case "kanban.css":
+		return html.KanbanCSS, nil
+	case "kanban.js":
+		return html.KanbanJavascrpt, nil
+	case "page.css":
+		return html.PageCSS, nil
+	default:
+		return nil, errors.New("not found")
+	}
 }
 
 func setHeaderByFileSuffix(ctx *atreugo.RequestCtx, filename string) {

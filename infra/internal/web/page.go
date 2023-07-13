@@ -3,6 +3,7 @@ package web
 import (
 	"bytes"
 	"fmt"
+	myHTML "github.com/biosvos/markadr/assets/html"
 	"github.com/biosvos/markadr/flow/adr"
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/ast"
@@ -92,10 +93,7 @@ func (r *router) page(ctx *atreugo.RequestCtx) error {
 		return errors.WithStack(err)
 	}
 
-	tmpl, err := template.ParseFiles("assets/html/page.html")
-	if err != nil {
-		return errors.WithStack(err)
-	}
+	tmpl := template.Must(template.New("page").Parse(myHTML.Page))
 	var buffer bytes.Buffer
 	err = tmpl.Execute(&buffer, map[string]string{
 		"contents":   string(ret),

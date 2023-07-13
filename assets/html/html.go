@@ -15,4 +15,4 @@ var PageCSS []byte
 var KanbanCSS []byte
 
 //go:embed kanban.js
-var KanbanJavascrpt []byte
+var KanbanJavascript []byte

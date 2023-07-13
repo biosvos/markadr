@@ -23,7 +23,7 @@ func getFileBytes(filename string) ([]byte, error) {
 	case "kanban.css":
 		return html.KanbanCSS, nil
 	case "kanban.js":
-		return html.KanbanJavascrpt, nil
+		return html.KanbanJavascript, nil
 	case "page.css":
 		return html.PageCSS, nil
 	default:

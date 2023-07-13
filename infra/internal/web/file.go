@@ -26,6 +26,8 @@ func getFileBytes(filename string) ([]byte, error) {
 		return html.KanbanJavascript, nil
 	case "page.css":
 		return html.PageCSS, nil
+	case "favicon.ico":
+		return html.Favicon, nil
 	default:
 		return nil, errors.New("not found")
 	}
@@ -37,5 +39,7 @@ func setHeaderByFileSuffix(ctx *atreugo.RequestCtx, filename string) {
 		ctx.Response.Header.SetContentType("text/css")
 	case strings.HasSuffix(filename, ".js"):
 		ctx.Response.Header.SetContentType("text/javascript")
+	case strings.HasSuffix(filename, ".ico"):
+		ctx.Response.Header.SetContentType("image/png")
 	}
 }

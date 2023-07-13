@@ -16,3 +16,6 @@ var KanbanCSS []byte
 
 //go:embed kanban.js
 var KanbanJavascript []byte
+
+//go:embed favicon.png
+var Favicon []byte

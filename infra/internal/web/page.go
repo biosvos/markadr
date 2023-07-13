@@ -5,14 +5,46 @@ import (
 	"fmt"
 	"github.com/biosvos/markadr/flow/adr"
 	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/ast"
 	"github.com/gomarkdown/markdown/html"
 	"github.com/gomarkdown/markdown/parser"
 	"github.com/pkg/errors"
 	"github.com/savsgio/atreugo/v11"
+	"io"
 	"log"
 	"strings"
 	"text/template"
 )
+
+type CustomHook struct {
+	prevLevel int
+	numbering int
+}
+
+func (c *CustomHook) renderHook(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
+	heading, ok := node.(*ast.Heading)
+	if !(entering && ok) {
+		return ast.GoToNext, false
+	}
+
+	switch {
+	case c.prevLevel == heading.Level:
+		_, _ = w.Write([]byte("</section>"))
+	case c.prevLevel > heading.Level:
+		diff := c.prevLevel - heading.Level
+		for i := 0; i < diff; i++ {
+			_, _ = w.Write([]byte("</section>"))
+		}
+		_, _ = w.Write([]byte("</section>"))
+	case c.prevLevel < heading.Level:
+	}
+
+	_, _ = w.Write([]byte(fmt.Sprintf("<section id='%v'>", c.numbering)))
+	c.numbering++
+
+	c.prevLevel = heading.Level
+	return ast.GoToNext, false
+}
 
 func mdToHTML(md []byte) []byte {
 	// create markdown parser with extensions
@@ -22,12 +54,18 @@ func mdToHTML(md []byte) []byte {
 
 	// create HTML renderer with extensions
 	htmlFlags := html.CommonFlags | html.HrefTargetBlank
+	hook := &CustomHook{}
 	opts := html.RendererOptions{
-		Flags: htmlFlags,
+		Flags:          htmlFlags,
+		RenderNodeHook: hook.renderHook,
 	}
 	renderer := html.NewRenderer(opts)
 
-	return markdown.Render(doc, renderer)
+	contents := markdown.Render(doc, renderer)
+	for i := 0; i < hook.prevLevel; i++ {
+		contents = fmt.Appendf(contents, "</section>")
+	}
+	return contents
 }
 
 func (r *router) page(ctx *atreugo.RequestCtx) error {

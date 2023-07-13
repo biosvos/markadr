@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/page.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(function () {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute("id");
+                    if (entry.intersectionRatio > 0) {
+                        $(`nav li a[href="#${id}"]`).parent().addClass("active");
+                        // document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
+                    } else {
+                        $(`nav li a[href="#${id}"]`).parent().removeClass("active");
+                        // document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.remove('active');
+                    }
+                });
+            });
+
+            // Track all sections that have an `id` applied
+            document.querySelectorAll('section[id]').forEach((section) => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</head>
+<body>
+<main>
+    <div>
+        {{.contents}}
+    </div>
+    <nav class="section-nav">
+        <ol>
+            {{.navigation}}
+        </ol>
+    </nav>
+</main>
+</body>
+</html>

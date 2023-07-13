@@ -1,44 +1,45 @@
 package adr
 
 import (
+	"github.com/biosvos/markadr/assets/markdown"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func TestTableOfContents(t *testing.T) {
-	document, _ := newDocument("../../assets/markdown/template.md")
-	section := divideSection(document)
+	document, _ := NewDocument(markdown.TestMarkdownFile)
+	section := DivideSection(document)
 
 	toc := TableOfContents(section)
 
-	require.Len(t, toc.children, 1)
-	require.EqualValues(t, "title", toc.children[0].title)
-	require.Len(t, toc.children[0].children, 5)
-	require.EqualValues(t, ContextAndProblemStatement, toc.children[0].children[0].title)
-	require.EqualValues(t, DecisionDrivers, toc.children[0].children[1].title)
-	require.EqualValues(t, ProsAndCons, toc.children[0].children[2].title)
-	require.EqualValues(t, DecisionOutcome, toc.children[0].children[3].title)
-	require.EqualValues(t, Links, toc.children[0].children[4].title)
+	require.Len(t, toc.Rows, 7)
+	require.EqualValues(t, Row{"title", 0}, toc.Rows[0])
+	require.EqualValues(t, Row{ContextAndProblemStatement, 1}, toc.Rows[1])
+	require.EqualValues(t, Row{DecisionDrivers, 1}, toc.Rows[2])
+	require.EqualValues(t, Row{ProsAndCons, 1}, toc.Rows[3])
+	require.EqualValues(t, Row{"[option 1]", 2}, toc.Rows[4])
+	require.EqualValues(t, Row{DecisionOutcome, 1}, toc.Rows[5])
+	require.EqualValues(t, Row{Links, 1}, toc.Rows[6])
 }
 
 func TestDivideSections(t *testing.T) {
-	document, _ := newDocument("../../assets/markdown/template.md")
+	document, _ := NewDocument(markdown.TestMarkdownFile)
 
-	sections := divideSection(document)
+	sections := DivideSection(document)
 
 	require.Len(t, sections.children, 1)
 	require.Len(t, sections.children[0].children, 5)
 }
 
 func TestNewDocument(t *testing.T) {
-	document, err := newDocument("../../assets/markdown/template.md")
+	document, err := NewDocument(markdown.TestMarkdownFile)
 	require.NoError(t, err)
 	require.NotNil(t, document)
 }
 
 func TestNewADR(t *testing.T) {
-	document, _ := newDocument("../../assets/markdown/template.md")
-	sections := divideSection(document)
+	document, _ := NewDocument(markdown.TestMarkdownFile)
+	sections := DivideSection(document)
 
 	ret, err := NewADR(sections)
 

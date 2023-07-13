@@ -4,26 +4,19 @@ import (
 	"bytes"
 	"github.com/gomarkdown/markdown/ast"
 	"github.com/gomarkdown/markdown/parser"
-	"github.com/pkg/errors"
-	"os"
 )
 
-func newDocument(filename string) (ast.Node, error) {
-	body, err := os.ReadFile(filename)
-	if err != nil {
-		return nil, errors.WithStack(err)
-	}
+func NewDocument(contents []byte) (ast.Node, error) {
 	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
 	p := parser.NewWithExtensions(extensions)
-	ret := p.Parse(body)
+	ret := p.Parse(contents)
 	return ret, nil
 }
 
 func parseText(doc ast.Node) string {
 	var buffer bytes.Buffer
 	parseNode(doc, func(node ast.Node) bool {
-		switch cur := node.(type) {
-		case *ast.Text:
+		if cur, ok := node.(*ast.Text); ok {
 			buffer.WriteString(string(cur.Literal))
 			return true
 		}
@@ -45,16 +38,45 @@ func parseNode(doc ast.Node, fn func(node ast.Node) bool) {
 	})
 }
 
+type Row struct {
+	Title string
+	Depth int
+}
+
 type TOC struct {
-	title    string
-	children []*TOC
+	Rows []Row
 }
 
 func TableOfContents(section *Section) *TOC {
 	var ret TOC
-	ret.title = section.title
-	for _, child := range section.children {
-		ret.children = append(ret.children, TableOfContents(child))
+
+	type Node struct {
+		section *Section
+		depth   int
+	}
+	var stack []*Node
+
+	for i := len(section.children); i > 0; i-- {
+		stack = append(stack, &Node{
+			section: section.children[i-1],
+			depth:   0,
+		})
+	}
+
+	for len(stack) > 0 {
+		pop := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+
+		ret.Rows = append(ret.Rows, Row{
+			Title: pop.section.title,
+			Depth: pop.depth,
+		})
+		for i := len(pop.section.children); i > 0; i-- {
+			stack = append(stack, &Node{
+				section: pop.section.children[i-1],
+				depth:   pop.depth + 1,
+			})
+		}
 	}
 	return &ret
 }

@@ -8,7 +8,7 @@ type Section struct {
 	children []*Section
 }
 
-func divideSection(doc ast.Node) *Section {
+func DivideSection(doc ast.Node) *Section {
 	stack := []*Section{
 		{
 			title: "",

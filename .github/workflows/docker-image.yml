@@ -1,0 +1,14 @@
+name: docker build and push
+
+on:
+  push:
+    paths-ignore:
+    - 'docs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and push Docker images
+      with:
+        push: true

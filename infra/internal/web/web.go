@@ -41,7 +41,5 @@ func (w *Web) routing() {
 	}
 	w.server.GET("/", routing.homepage)
 	w.server.GET("/pages/{title}", routing.page)
-	w.server.POST("/pages", routing.create)
-	w.server.GET("/pages", routing.createForm)
 	w.server.GET("/{file}", routing.css)
 }

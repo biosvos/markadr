@@ -30,5 +30,10 @@ jobs:
       name: Build and push Docker images
       uses: docker/build-push-action@v4.1.1
       with:
-        push: true
         tags: biosvos/markadr:latest
+    -
+      name: Push image to GHCR
+      run: |
+        docker buildx imagetools create \
+          --tag biosvos/markadr:latest \
+          biosvos/markadr:latest

@@ -1,0 +1,45 @@
+name: Build Image
+
+on:
+  push:
+    paths-ignore:
+    - 'docs/**'
+
+jobs:
+  build-image:
+    name: Build image without Containerfile
+    runs-on: ubuntu-latest
+
+    steps:
+    - 
+      name: Checkout
+      uses: actions/checkout@v3.5.3
+    - 
+      name: Setup Go environment
+      uses: actions/setup-go@v4.0.1
+    - 
+      name: build go
+      run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+    - 
+      name: Build Image
+      id: build-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        base-image: scratch
+        image: ghcr.io/${{ github.actor }}/markadr
+        tags: latest
+        envs: |
+          ASSET_PATH=/srv/app
+        content: |
+          markadr
+        entrypoint: markadr
+        port: 8123
+    - 
+      name: Push To Registry
+      uses: redhat-actions/push-to-registry@v2.7
+      with:
+        image: ${{ steps.build-image.outputs.image }}
+        tags: ${{ steps.build-image.outputs.tags }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}

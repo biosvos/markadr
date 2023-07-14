@@ -8,8 +8,17 @@ import (
 
 var _ repository.Repository = &Repository{}
 
+func NewRepository(items map[string]*adr.ADR) *Repository {
+	return &Repository{items: items}
+}
+
 type Repository struct {
 	items map[string]*adr.ADR
+}
+
+func (r *Repository) Update(record *adr.ADR) error {
+	r.items[record.Title] = record
+	return nil
 }
 
 func (r *Repository) Get(title string) (*adr.ADR, error) {

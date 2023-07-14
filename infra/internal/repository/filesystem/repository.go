@@ -20,7 +20,27 @@ type Repository struct {
 	workDir string
 }
 
+func (r *Repository) Update(record *adr.ADR) error {
+	_, err := r.get(record.Title)
+	if err != nil {
+		return errors.WithStack(err)
+	}
+	marshal, err := json.Marshal(record)
+	if err != nil {
+		return errors.WithStack(err)
+	}
+	err = os.WriteFile(fmt.Sprintf("%v/%v.json", r.workDir, record.Title), marshal, 0)
+	if err != nil {
+		return errors.WithStack(err)
+	}
+	return nil
+}
+
 func (r *Repository) Get(title string) (*adr.ADR, error) {
+	return r.get(title)
+}
+
+func (r *Repository) get(title string) (*adr.ADR, error) {
 	contents, err := os.ReadFile(fmt.Sprintf("%v/%v.json", r.workDir, title))
 	if err != nil {
 		return nil, errors.WithStack(err)

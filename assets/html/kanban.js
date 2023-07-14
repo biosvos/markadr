@@ -24,5 +24,12 @@ $(function () {
     blocks.on("dragover", function (event) {
         event.preventDefault();
     });
-})
+});
+
+$(function () {
+   const client = mqtt.connect("ws://127.0.0.1:9001");
+   client.subscribe("adr");
+   client.on("message", function (topic, payload) {
+   });
+});
 

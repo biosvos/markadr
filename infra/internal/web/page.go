@@ -70,11 +70,7 @@ func mdToHTML(md []byte) []byte {
 
 func (r *router) page(ctx *atreugo.RequestCtx) error {
 	title := ctx.UserValue("title").(string)
-	page, err := r.navigator.GetPage(title)
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	contents, err := page.Get()
+	contents, err := r.repository.RawData(title)
 	if err != nil {
 		return errors.WithStack(err)
 	}

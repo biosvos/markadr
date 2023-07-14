@@ -7,17 +7,6 @@ import (
 	"strings"
 )
 
-type Status string
-
-const (
-	DraftStatus      = Status("Draft")
-	ProposedStatus   = Status("Proposed")
-	RejectedStatus   = Status("Rejected")
-	AcceptedStatus   = Status("Accepted")
-	DeprecatedStatus = Status("Deprecated")
-	SupersededStatus = Status("Superseded")
-)
-
 type TradeOff struct {
 	Pros []string
 	Cons []string

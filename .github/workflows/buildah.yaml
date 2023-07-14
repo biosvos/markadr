@@ -27,7 +27,7 @@ jobs:
       with:
         base-image: scratch
         image: ghcr.io/${{ github.actor }}/markadr
-        tags: ${GITHUB_REF##*/}
+        tags: ${BRANCH_NAME}
         envs: |
           ASSET_PATH=/srv/app
         content: |

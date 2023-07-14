@@ -50,6 +50,7 @@ func (r *Repository) get(title string) (*adr.ADR, error) {
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
+	ret.Title = title
 	return &ret, nil
 }
 

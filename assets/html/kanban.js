@@ -12,6 +12,14 @@ $(function () {
         event.preventDefault();
         let data = event.originalEvent.dataTransfer.getData("text");
         event.originalEvent.currentTarget.appendChild(document.getElementById(data));
+        $.ajax({
+            contentType: 'application/json',
+            url: `/pages/${data}`,
+            type: 'put',
+            data: JSON.stringify({
+                status: event.originalEvent.currentTarget.id
+            })
+        });
     });
     blocks.on("dragover", function (event) {
         event.preventDefault();

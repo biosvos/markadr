@@ -1,0 +1,1 @@
+{"title":"update-status","status":"Proposed","context":"index.html에서 lane끼리 이동은 가능하나, 실제 데이터에 변경이 없다.","problem":"lane 변경에 따라 데이터 변경","drivers":["update adr 가능 여부"],"options":[{"title":"lane 이동 시, 해당 status로 status 변경","pros":["상태 변경이 쉬워짐"],"cons":[]}],"outcome":[{"title":"lane 이동 시, status 변경","contents":"status 변경이 쉬워짐"}],"references":null}

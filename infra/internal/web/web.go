@@ -42,4 +42,5 @@ func (w *Web) routing() {
 	w.server.GET("/", routing.homepage)
 	w.server.GET("/pages/{title}", routing.page)
 	w.server.GET("/{file}", routing.sendFile)
+	w.server.PUT("/pages/{title}", routing.updateADRStatus)
 }

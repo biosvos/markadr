@@ -36,7 +36,7 @@ jobs:
           ASSET_PATH=/srv/app
         content: |
           markadr
-        entrypoint: markadr
+        entrypoint: /markadr
         port: 8123
     - 
       name: Push To Registry

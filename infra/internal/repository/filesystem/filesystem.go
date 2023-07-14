@@ -80,41 +80,6 @@ func (r *Repository) newSummary(filename string) (*adr.Summary, error) {
 	return ret, nil
 }
 
-func parseStatus(contents []byte) (adr.Status, error) {
-	lines := strings.Split(string(contents), "\n")
-	for _, line := range lines {
-		const statusSection = "- Status:"
-		if !strings.Contains(line, statusSection) {
-			continue
-		}
-		line = strings.ReplaceAll(line, statusSection, "")
-		line = strings.TrimSpace(line)
-		status := decisionStatus(line)
-		return status, nil
-	}
-	return "", errors.New("not found status section")
-}
-
-func decisionStatus(status string) adr.Status {
-	status = strings.ToLower(status)
-	switch status {
-	case "draft":
-		return adr.DraftStatus
-	case "proposed":
-		return adr.ProposedStatus
-	case "rejected":
-		return adr.RejectedStatus
-	case "accepted":
-		return adr.AcceptedStatus
-	case "deprecated":
-		return adr.DeprecatedStatus
-	case "superseded":
-		return adr.SupersededStatus
-	default:
-		return ""
-	}
-}
-
 func (r *Repository) RawData(title string) ([]byte, error) {
 	contents, err := os.ReadFile(fmt.Sprintf("%v/%v.md", r.workDir, title))
 	if err != nil {

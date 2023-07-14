@@ -6,66 +6,35 @@ import (
 	"testing"
 )
 
-func Test_newNavigator(t *testing.T) {
-	tests := []struct {
-		name string
-		toc  *adr.TOC
-		want string
-	}{
-		{
-			name: "",
-			toc:  &adr.TOC{},
-			want: "",
-		},
-		{
-			name: "",
-			toc: &adr.TOC{
-				Rows: []adr.Row{
-					{
-						Title: "title",
-						Depth: 0,
-					},
-				},
+func TestADR(t *testing.T) {
+	record := adr.ADR{
+		Title:   "abc",
+		Status:  "draft",
+		Context: "이랬음",
+		Problem: "문제",
+		Drivers: []string{"속도"},
+		Options: []*adr.Option{
+			{
+				Title: "캐시",
+				Pros:  []string{"빠름"},
+				Cons:  []string{"관리 어렵"},
 			},
-			want: "<li><a href='#0'>title</a></li>",
 		},
-		{
-			name: "",
-			toc: &adr.TOC{
-				Rows: []adr.Row{
-					{
-						Title: "title",
-						Depth: 0,
-					},
-					{
-						Title: "title",
-						Depth: 0,
-					},
-				},
+		Outcomes: []*adr.Outcome{
+			{
+				Title:    "캐시",
+				Contents: "빨리졌다.",
 			},
-			want: "<li><a href='#0'>title</a></li><li><a href='#1'>title</a></li>",
 		},
-		{
-			name: "",
-			toc: &adr.TOC{
-				Rows: []adr.Row{
-					{
-						Title: "title",
-						Depth: 0,
-					},
-					{
-						Title: "title",
-						Depth: 1,
-					},
-				},
+		References: []*adr.Reference{
+			{
+				Title:       "b",
+				Destination: "a",
 			},
-			want: "<li><a href='#0'>title</a><ul><li><a href='#1'>title</a></li></ul></li>",
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := newNavigator(tt.toc)
-			require.Equal(t, tt.want, got)
-		})
-	}
+
+	adrhtml, err := makeADRHTML(&record)
+	require.NoError(t, err)
+	t.Log(adrhtml)
 }

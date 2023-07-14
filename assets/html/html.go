@@ -16,3 +16,9 @@ var KanbanJavascript []byte
 
 //go:embed favicon.png
 var Favicon []byte
+
+//go:embed adr.html
+var ADR string
+
+//go:embed navigation.html
+var Navigation string

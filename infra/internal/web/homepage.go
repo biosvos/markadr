@@ -10,7 +10,7 @@ import (
 )
 
 func (r *router) homepage(ctx *atreugo.RequestCtx) error {
-	summaries, err := r.repository.ListSummaries()
+	records, err := r.repository.List()
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -22,20 +22,20 @@ func (r *router) homepage(ctx *atreugo.RequestCtx) error {
 	var deprecatedSlice []string
 	var supersededSlice []string
 
-	for _, summary := range summaries {
-		switch summary.Status {
+	for _, record := range records {
+		switch record.Status {
 		case adr.DraftStatus:
-			draftSlice = append(draftSlice, summary.Title)
+			draftSlice = append(draftSlice, record.Title)
 		case adr.ProposedStatus:
-			proposedSlice = append(proposedSlice, summary.Title)
+			proposedSlice = append(proposedSlice, record.Title)
 		case adr.RejectedStatus:
-			rejectedSlice = append(rejectedSlice, summary.Title)
+			rejectedSlice = append(rejectedSlice, record.Title)
 		case adr.AcceptedStatus:
-			acceptedSlice = append(acceptedSlice, summary.Title)
+			acceptedSlice = append(acceptedSlice, record.Title)
 		case adr.DeprecatedStatus:
-			deprecatedSlice = append(deprecatedSlice, summary.Title)
+			deprecatedSlice = append(deprecatedSlice, record.Title)
 		case adr.SupersededStatus:
-			supersededSlice = append(supersededSlice, summary.Title)
+			supersededSlice = append(supersededSlice, record.Title)
 		}
 	}
 

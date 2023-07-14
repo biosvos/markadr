@@ -1,0 +1,31 @@
+{
+  "status": "Draft",
+  "context": "이랬음",
+  "problem": "문제",
+  "drivers": [
+    "속도"
+  ],
+  "options": [
+    {
+      "title": "캐시",
+      "pros": [
+        "빠름"
+      ],
+      "cons": [
+        "관리 어렵"
+      ]
+    }
+  ],
+  "outcome": [
+    {
+      "title": "캐시",
+      "contents": "빨리졌다."
+    }
+  ],
+  "references": [
+    {
+      "title": "b",
+      "destination": "a"
+    }
+  ]
+}

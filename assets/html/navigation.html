@@ -1,0 +1,40 @@
+ <ol>
+   <li>
+     <a href="#title">{{.Title}}</a>
+     <ul>
+       <li>
+         <a href="#context">Context</a>
+       </li>
+       <li>
+         <a href="#problem">Problem</a>
+       </li>
+
+       <li>
+         <a href="#drivers">Decision Drivers</a>
+       </li>
+       <li>
+         <a href="#options">Options</a>
+         <ul>
+           {{range $i, $option := .Options}}
+           <li>
+             <a href="#option-{{$i}}">{{$option.Title}}</a>
+           </li>
+           {{end}}
+         </ul>
+       </li>
+       <li>
+         <a href='#outcomes'>Decision Outcome</a>
+         <ul>
+           {{range $i, $outcome := .Outcomes}}
+           <li>
+             <a href="#option-{{$i}}">{{$outcome.Title}}</a>
+           </li>
+           {{end}}
+         </ul>
+       </li>
+       <li>
+         <a href='#references'>References</a>
+       </li>
+     </ul>
+   </li>
+ </ol>

@@ -1,6 +1,7 @@
 package adr
 
 import (
+	"encoding/json"
 	"github.com/biosvos/markadr/assets/markdown"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -37,23 +38,35 @@ func TestNewDocument(t *testing.T) {
 	require.NotNil(t, document)
 }
 
-func TestNewADR(t *testing.T) {
-	document, _ := NewDocument(markdown.TestMarkdownFile)
-	sections := DivideSection(document)
+func TestJSON(t *testing.T) {
+	adr := ADR{
+		Title:   "abc",
+		Status:  "draft",
+		Context: "이랬음",
+		Problem: "문제",
+		Drivers: []string{"속도"},
+		Options: []*Option{
+			{
+				Title: "캐시",
+				Pros:  []string{"빠름"},
+				Cons:  []string{"관리 어렵"},
+			},
+		},
+		Outcomes: []*Outcome{
+			{
+				Title:    "캐시",
+				Contents: "빨리졌다.",
+			},
+		},
+		References: []*Reference{
+			{
+				Title:       "b",
+				Destination: "a",
+			},
+		},
+	}
 
-	ret, err := NewADR(sections)
-
+	marshal, err := json.Marshal(&adr)
 	require.NoError(t, err)
-	require.NotNil(t, ret)
-	require.EqualValues(t, "title", ret.Title)
-	require.EqualValues(t, DraftStatus, ret.Status)
-	require.Len(t, ret.DecisionDrivers, 2)
-	require.EqualValues(t, "driver1", ret.DecisionDrivers[0])
-	require.EqualValues(t, "driver2", ret.DecisionDrivers[1])
-	require.Len(t, ret.Options.Options, 1)
-	require.EqualValues(t, 1, ret.Options.Pick)
-	require.Len(t, ret.Options.Options[0].TradeOff.Pros, 2)
-	require.Len(t, ret.Options.Options[0].TradeOff.Cons, 3)
-	require.Len(t, ret.Links, 1)
-	require.NotEmpty(t, ret.ContextAndProblem)
+	t.Log(string(marshal))
 }

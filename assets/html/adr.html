@@ -1,0 +1,65 @@
+<section id="title">
+    <h1>{{.Title}}</h1>
+    <ul>
+        <li>Status: {{.Status}}</li>
+    </ul>
+    <section id="context">
+        <h2>Context</h2>
+        <p>{{.Context}}</p>
+    </section>
+    <section id="problem">
+        <h2>Problem</h2>
+        <p>{{.Problem}}</p>
+    </section>
+    <section id='drivers'>
+        <h2 id="decision-drivers">Decision Drivers</h2>
+        <ul>
+            {{range .Drivers}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+    </section>
+    <section id="options">
+        <h2>Options</h2>
+        {{range $i, $option := .Options}}
+            <section id="option-{{$i}}">
+                <h3>{{$option.Title}}</h3>
+                <h4>Pros</h4>
+                <ul>
+                    {{range $option.Pros}}
+                        <li>
+                            {{.}}
+                        </li>
+                    {{end}}
+                </ul>
+                <h4>Cons</h4>
+                <ul>
+                    {{range $option.Cons}}
+                        <li>
+                            {{.}}
+                        </li>
+                    {{end}}
+                </ul>
+            </section>
+        {{end}}
+    </section>
+    <section id="outcomes">
+        <h2>Decision Outcome</h2>
+        {{range $i, $outcome := .Outcomes}}
+            <section id="outcome-{{$i}}">
+                <h3>{{$outcome.Title}}</h3>
+                <p>{{$outcome.Contents}}</p>
+            </section>
+        {{end}}
+    </section>
+    <section id="references">
+        <h2>References</h2>
+        <ul>
+            {{range .References}}
+                <li>
+                    <a href="{{.Destination}}" target="_blank">{{.Title}}</a>
+                </li>
+            {{end}}
+        </ul>
+    </section>
+</section>

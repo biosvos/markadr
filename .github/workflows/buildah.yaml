@@ -21,13 +21,17 @@ jobs:
       name: build go
       run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
     - 
+      name: Get branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v7
+    - 
       name: Build Image
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
         base-image: scratch
         image: ghcr.io/${{ github.actor }}/markadr
-        tags: ${BRANCH_NAME}
+        tags: ${{ steps.branch-name.outputs.current_branch }}
         envs: |
           ASSET_PATH=/srv/app
         content: |

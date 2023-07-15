@@ -3,7 +3,7 @@ package web
 import (
 	"bytes"
 	"github.com/biosvos/markadr/assets/html"
-	"github.com/biosvos/markadr/flow/adr"
+	"github.com/biosvos/markadr/flow/domain"
 	"github.com/pkg/errors"
 	"github.com/savsgio/atreugo/v11"
 	"text/template"
@@ -24,17 +24,17 @@ func (r *router) homepage(ctx *atreugo.RequestCtx) error {
 
 	for _, record := range records {
 		switch record.Status {
-		case adr.DraftStatus:
+		case domain.DraftStatus:
 			draftSlice = append(draftSlice, record.Title)
-		case adr.ProposedStatus:
+		case domain.ProposedStatus:
 			proposedSlice = append(proposedSlice, record.Title)
-		case adr.RejectedStatus:
+		case domain.RejectedStatus:
 			rejectedSlice = append(rejectedSlice, record.Title)
-		case adr.AcceptedStatus:
+		case domain.AcceptedStatus:
 			acceptedSlice = append(acceptedSlice, record.Title)
-		case adr.DeprecatedStatus:
+		case domain.DeprecatedStatus:
 			deprecatedSlice = append(deprecatedSlice, record.Title)
-		case adr.SupersededStatus:
+		case domain.SupersededStatus:
 			supersededSlice = append(supersededSlice, record.Title)
 		}
 	}

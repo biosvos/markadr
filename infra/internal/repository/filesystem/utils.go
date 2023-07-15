@@ -1,32 +1,32 @@
 package filesystem
 
 import (
-	"github.com/biosvos/markadr/flow/adr"
+	"github.com/biosvos/markadr/flow/domain"
 	"github.com/pkg/errors"
 	"strings"
 )
 
-func decisionStatus(status string) adr.Status {
+func decisionStatus(status string) domain.Status {
 	status = strings.ToLower(status)
 	switch status {
 	case "draft":
-		return adr.DraftStatus
+		return domain.DraftStatus
 	case "proposed":
-		return adr.ProposedStatus
+		return domain.ProposedStatus
 	case "rejected":
-		return adr.RejectedStatus
+		return domain.RejectedStatus
 	case "accepted":
-		return adr.AcceptedStatus
+		return domain.AcceptedStatus
 	case "deprecated":
-		return adr.DeprecatedStatus
+		return domain.DeprecatedStatus
 	case "superseded":
-		return adr.SupersededStatus
+		return domain.SupersededStatus
 	default:
 		return ""
 	}
 }
 
-func parseStatus(contents []byte) (adr.Status, error) {
+func parseStatus(contents []byte) (domain.Status, error) {
 	lines := strings.Split(string(contents), "\n")
 	for _, line := range lines {
 		const statusSection = "- Status:"

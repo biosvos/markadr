@@ -1,4 +1,4 @@
-package adr
+package domain
 
 type Option struct {
 	Title string   `json:"title"`

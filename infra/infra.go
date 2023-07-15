@@ -1,6 +1,7 @@
 package infra
 
 import (
+	humbleFilesystem "github.com/biosvos/markadr/infra/internal/filesystem"
 	"github.com/biosvos/markadr/infra/internal/repository/filesystem"
 	"github.com/biosvos/markadr/infra/internal/web"
 	"log"
@@ -13,7 +14,9 @@ const (
 
 func Run() {
 	assetPath := getEnv(envAssetPath)
-	server := web.NewWeb(8123, filesystem.NewRepository(assetPath))
+	workspace := humbleFilesystem.NewWorkspace(humbleFilesystem.NewFilesystem(), assetPath)
+	extension := humbleFilesystem.NewExtension(workspace, workspace, "json")
+	server := web.NewWeb(8123, filesystem.NewRepository(extension, extension))
 	err := server.Run()
 	panicIfErr(err)
 }

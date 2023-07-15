@@ -1,4 +1,4 @@
-package adr
+package domain
 
 import (
 	"github.com/biosvos/markadr/flow/broker"

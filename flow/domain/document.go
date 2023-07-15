@@ -1,4 +1,4 @@
-package adr
+package domain
 
 import (
 	"bytes"

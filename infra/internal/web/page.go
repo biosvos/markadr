@@ -3,7 +3,7 @@ package web
 import (
 	"bytes"
 	myHTML "github.com/biosvos/markadr/assets/html"
-	"github.com/biosvos/markadr/flow/adr"
+	"github.com/biosvos/markadr/flow/domain"
 	"github.com/pkg/errors"
 	"github.com/savsgio/atreugo/v11"
 	"text/template"
@@ -39,7 +39,7 @@ func (r *router) page(ctx *atreugo.RequestCtx) error {
 	return ctx.HTTPResponse(buffer.String())
 }
 
-func makeADRHTML(record *adr.ADR) (string, error) {
+func makeADRHTML(record *domain.ADR) (string, error) {
 	tmpl := template.Must(template.New("adr").Parse(myHTML.ADR))
 	var buffer bytes.Buffer
 	err := tmpl.Execute(&buffer, record)
@@ -49,7 +49,7 @@ func makeADRHTML(record *adr.ADR) (string, error) {
 	return buffer.String(), nil
 }
 
-func makeNavigation(record *adr.ADR) (string, error) {
+func makeNavigation(record *domain.ADR) (string, error) {
 	tmpl := template.Must(template.New("navigation").Parse(myHTML.Navigation))
 	var buffer bytes.Buffer
 	err := tmpl.Execute(&buffer, record)

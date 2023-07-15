@@ -1,4 +1,4 @@
-package adr
+package domain
 
 func Map[IN any, OUT any](slice []IN, f func(IN) OUT) []OUT {
 	var ret []OUT

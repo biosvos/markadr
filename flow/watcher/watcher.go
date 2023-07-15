@@ -1,6 +1,6 @@
 package watcher
 
 type Watcher interface {
-	Start() (chan string, error)
+	Start(fn func(filename string)) error
 	Stop()
 }

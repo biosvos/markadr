@@ -16,7 +16,9 @@ func TestWatcher(t *testing.T) {
 	}
 	watcher, err := NewWatcher(dir)
 	require.NoError(t, err)
-	_, err = watcher.Start()
+	err = watcher.Start(func(filename string) {
+
+	})
 	require.NoError(t, err)
 	time.Sleep(2 * time.Second)
 	watcher.Stop()

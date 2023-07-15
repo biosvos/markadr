@@ -27,7 +27,7 @@ func NewWatcher(workDir string) (*Watcher, error) {
 	}, nil
 }
 
-func (w *Watcher) callback() {
+func (w *Watcher) callback(fn func(filename string)) {
 	for {
 		select {
 		case event, ok := <-w.watcher.Events:
@@ -35,7 +35,7 @@ func (w *Watcher) callback() {
 				return
 			}
 			log.Println(event)
-			// TODO broker
+			fn(event.Name)
 		case err, ok := <-w.watcher.Errors:
 			if !ok {
 				return
@@ -47,14 +47,13 @@ func (w *Watcher) callback() {
 	}
 }
 
-func (w *Watcher) Start() (chan string, error) {
-	ch := make(chan string)
-	go w.callback()
+func (w *Watcher) Start(fn func(filename string)) error {
+	go w.callback(fn)
 	err := w.watcher.Add(w.workDir)
 	if err != nil {
-		return nil, errors.WithStack(err)
+		return errors.WithStack(err)
 	}
-	return ch, nil
+	return nil
 }
 
 func (w *Watcher) Stop() {

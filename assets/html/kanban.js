@@ -101,7 +101,7 @@ $(function () {
         let adrElement = $(`#${title}`);
         if (status === "") { // deleted
             adrElement.detach();
-            adrs.delete(`${title}`);
+            delete adrs[`${title}`];
             return;
         }
 

@@ -2,7 +2,7 @@ package web
 
 import (
 	"encoding/json"
-	"github.com/biosvos/markadr/flow/adr"
+	"github.com/biosvos/markadr/flow/domain"
 	"github.com/pkg/errors"
 	"github.com/savsgio/atreugo/v11"
 	"golang.org/x/text/cases"
@@ -16,13 +16,13 @@ func (r *router) updateADRStatus(ctx *atreugo.RequestCtx) error {
 		return errors.WithStack(err)
 	}
 
-	var tmp adr.ADR
+	var tmp domain.ADR
 	err = json.Unmarshal(ctx.PostBody(), &tmp)
 	if err != nil {
 		return errors.WithStack(err)
 	}
 	caser := cases.Title(language.English)
-	record.Status = adr.Status(caser.String(string(tmp.Status)))
+	record.Status = domain.Status(caser.String(string(tmp.Status)))
 
 	err = r.repository.Update(record)
 	if err != nil {

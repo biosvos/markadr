@@ -1,7 +1,7 @@
 package filesystem
 
 import (
-	"github.com/biosvos/markadr/flow/adr"
+	"github.com/biosvos/markadr/flow/domain"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -40,5 +40,5 @@ Pick: [option 1]
 - [Link type](link to adr)
 `))
 	require.NoError(t, err)
-	require.Equal(t, adr.DraftStatus, status)
+	require.Equal(t, domain.DraftStatus, status)
 }

@@ -1,4 +1,4 @@
-package adr
+package domain
 
 type Option struct {
 	Title string   `json:"title"`
@@ -26,11 +26,3 @@ type ADR struct {
 	Outcomes   []*Outcome   `json:"outcome"`
 	References []*Reference `json:"references"`
 }
-
-const (
-	ContextAndProblemStatement = "Context and Problem Statement"
-	DecisionDrivers            = "Decision Drivers"
-	DecisionOutcome            = "Decision Outcome"
-	ProsAndCons                = "Options"
-	Links                      = "Links"
-)

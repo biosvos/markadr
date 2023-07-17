@@ -7,58 +7,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
             integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="kanban.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"
+            integrity="sha512-tc5xpAPaQDl/Uxd7ZVbV66v94Lys0IefMJSdlABPuzyCv0IXmr9TkqEQvZiWKRoXMSlP5YPRwpq2a+v5q2uzMg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="kanban.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="kanban-board">
         <div class="kanban-block" id="draft">
             <strong>Draft</strong>
-            {{range .draft}}
-                <div class="task" id="{{.}}" draggable="true">
-                    <span>{{.}}</span>
-                </div>
-            {{end}}
         </div>
         <div class="kanban-block" id="proposed">
             <strong>Proposed</strong>
-            {{range .proposed}}
-                <div class="task" id="{{.}}" draggable="true">
-                    <span>{{.}}</span>
-                </div>
-            {{end}}
         </div>
         <div class="kanban-block" id="rejected">
             <strong>Rejected</strong>
-            {{range .rejected}}
-                <div class="task" id="{{.}}" draggable="true">
-                    <span>{{.}}</span>
-                </div>
-            {{end}}
         </div>
         <div class="kanban-block" id="Accepted">
             <strong>Accepted</strong>
-            {{range .accepted}}
-                <div class="task" id="{{.}}" draggable="true">
-                    <span>{{.}}</span>
-                </div>
-            {{end}}
         </div>
         <div class="kanban-block" id="Deprecated">
             <strong>Deprecated</strong>
-            {{range .deprecated}}
-                <div class="task" id="{{.}}" draggable="true">
-                    <span>{{.}}</span>
-                </div>
-            {{end}}
         </div>
         <div class="kanban-block" id="superseded">
             <strong>Superseded by</strong>
-            {{range .superseded}}
-                <div class="task" id="{{.}}" draggable="true">
-                    <span>{{.}}</span>
-                </div>
-            {{end}}
         </div>
     </div>
 </div>

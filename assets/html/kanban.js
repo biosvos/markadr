@@ -96,7 +96,6 @@ $(function () {
     client.subscribe("adr");
     client.on("message", function (topic, payload) {
         let adr = JSON.parse(payload);
-        console.log(adr);
         let title = adr["title"];
         let status = adr["status"];
         let adrElement = $(`#${title}`);

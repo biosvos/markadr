@@ -39,10 +39,10 @@ func (w *Watcher) callback(fn func(title string)) {
 				continue
 			}
 			title := event.Name
-			title = strings.TrimLeft(title, w.workDir)
-			title = strings.TrimLeft(title, "/")
-			title = strings.TrimRight(title, "json")
-			title = strings.TrimRight(title, ".")
+			title = strings.TrimPrefix(title, w.workDir)
+			title = strings.TrimPrefix(title, "/")
+			title = strings.TrimSuffix(title, "json")
+			title = strings.TrimSuffix(title, ".")
 			fn(title)
 		case err, ok := <-w.watcher.Errors:
 			if !ok {

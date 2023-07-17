@@ -5,6 +5,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/pkg/errors"
 	"log"
+	"strings"
 )
 
 var _ watcher.Watcher = &Watcher{}
@@ -27,15 +28,19 @@ func NewWatcher(workDir string) (*Watcher, error) {
 	}, nil
 }
 
-func (w *Watcher) callback(fn func(filename string)) {
+func (w *Watcher) callback(fn func(title string)) {
 	for {
 		select {
 		case event, ok := <-w.watcher.Events:
 			if !ok {
 				return
 			}
-			log.Println(event)
-			fn(event.Name)
+			title := event.Name
+			title = strings.TrimLeft(title, w.workDir)
+			title = strings.TrimLeft(title, "/")
+			title = strings.TrimRight(title, "json")
+			title = strings.TrimRight(title, ".")
+			fn(title)
 		case err, ok := <-w.watcher.Errors:
 			if !ok {
 				return

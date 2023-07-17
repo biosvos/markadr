@@ -7,7 +7,6 @@ import (
 	"github.com/biosvos/markadr/flow/watcher"
 	"github.com/pkg/errors"
 	"log"
-	"strings"
 )
 
 func NewService(watcher watcher.Watcher, broker broker.Broker) *Service {
@@ -35,21 +34,15 @@ type Event struct {
 	Status string `json:"status"`
 }
 
-func (s *Service) callback(filename string) {
-	filename = strings.TrimLeft(filename, s.workspace)
-	filename = strings.TrimLeft(filename, "/")
-	filename = strings.TrimRight(filename, s.extension)
-	filename = strings.TrimRight(filename, ".")
-
+func (s *Service) callback(title string) {
 	event := Event{
-		Title:  filename,
+		Title:  title,
 		Status: "",
 	}
-	adr, err := s.repository.Get(filename)
+	adr, err := s.repository.Get(title)
 	if err == nil {
 		event.Status = string(adr.Status)
 	}
-
 	s.publishEvent(&event)
 }
 

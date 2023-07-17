@@ -27,7 +27,7 @@ func (r *Repository) Update(record *domain.ADR) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	marshal, err := json.Marshal(record)
+	marshal, err := json.MarshalIndent(record, "", "\t")
 	if err != nil {
 		return errors.WithStack(err)
 	}

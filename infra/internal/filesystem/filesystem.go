@@ -24,7 +24,7 @@ func (f *Filesystem) ReadFile(filename string) ([]byte, error) {
 }
 
 func (f *Filesystem) WriteFile(filename string, contents []byte) error {
-	err := os.WriteFile(filename, contents, 0644)
+	err := os.WriteFile(filename, contents, 0600)
 	if err != nil {
 		return errors.WithStack(err)
 	}

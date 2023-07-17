@@ -35,6 +35,9 @@ func (w *Watcher) callback(fn func(title string)) {
 			if !ok {
 				return
 			}
+			if !strings.HasSuffix(event.Name, ".json") {
+				continue
+			}
 			title := event.Name
 			title = strings.TrimLeft(title, w.workDir)
 			title = strings.TrimLeft(title, "/")

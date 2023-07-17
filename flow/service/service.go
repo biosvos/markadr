@@ -9,15 +9,13 @@ import (
 	"log"
 )
 
-func NewService(watcher watcher.Watcher, broker broker.Broker) *Service {
-	return &Service{watcher: watcher, broker: broker}
+func NewService(watcher watcher.Watcher, broker broker.Broker, repository repository.Repository) *Service {
+	return &Service{watcher: watcher, broker: broker, repository: repository}
 }
 
 type Service struct {
 	watcher    watcher.Watcher
 	broker     broker.Broker
-	workspace  string
-	extension  string
 	repository repository.Repository
 }
 
